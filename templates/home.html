@@ -1,0 +1,97 @@
+{% extends 'base.html' %} {% block title %}Home{% endblock %} {% block content
+%}
+
+<div class="container py-5">
+    <div class="container px-2 py-2 my-5 w-100 h-100">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="urlInput" placeholder="Enter Youtube Video URL">
+            <label for="floatingInput">Enter Youtube Video URL</label>
+          </div>
+          <div class="d-flex justify-content-center align-items-center w-100">
+            <button type="button" id="submitUrl"  class="btn btn-primary btn-lg">Submit</button>
+          </div>
+          
+    </div>
+    <div class="card" id="videoCard">
+      <div class="card-body rounded">
+       <div class="w-100 h-100 d-flex justify-content-center align-items-center flex-column row-gap-5 py-5 px-5">
+        <iframe width="560" height="315" class="rounded" id="videoBox" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+        <button type="button" class="btn btn-primary" id="downloadVideo">
+          <span id="spanText">Download</span> 
+
+          <div class="spinner-border text-dark" style="display: none;" role="status" id="btnspinner">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </button>
+       </div>
+      </div>
+    </div>
+</div>
+
+<script>
+  let url = document.getElementById("urlInput");
+  let submitBtn = document.getElementById("submitUrl");
+  let videoBox = document.getElementById("videoBox");
+  let downloadBtn = document.getElementById("downloadVideo");
+
+  const extractVideoId = (url) => {
+    const match = url.match(/(?:\/|%3D|v=|vi=)([0-9A-Za-z_-]{11})(?:[%#?&]|$)/);
+    return match ? match[1] : null;
+}
+
+  const fetchVideoDetails = () =>{
+    link = extractVideoId(url.value);
+    console.log(link)
+    videoBox.setAttribute("src", `https://www.youtube.com/embed/${link}?si=Rqin2N2jFsjuzaV1`);
+    downloadUrl = "https://www.youtube.com/watch?v=bON-KPiiNCk";
+    document.getElementById("videoCard").style.display = "flex";
+  }
+
+  const downloadVideo = (url, ext, res) =>{
+    let spinner = document.getElementById("btnspinner");
+    let spanText = document.getElementById("spanText");
+    spinner.style.display = "block"
+    spanText.style.display = "none"
+    fetch("/video/download", {method:"POST",
+    body:JSON.stringify({
+      "link":url.value,
+      "format":ext,
+      "resolution":res
+    })
+  })
+    .then((response)=>{return response.json()})
+    .then((data)=>{
+      if(data["status"]==="success"){
+        window.open(`/video/download/file?fileName=${data.file_name}`)
+        spinner.style.display = "none"
+        spanText.style.display = "block"
+      }
+      else{
+        alert("Invalid Url")
+      }
+     
+    })
+    .catch((e)=>{
+      spinner.style.display = "none"
+      spanText.style.display = "block"
+      window.alert("something went wrong")
+    })
+  }
+
+  submitBtn.addEventListener("click", fetchVideoDetails);
+  downloadBtn.addEventListener("click", ()=>{
+    downloadVideo(url, "mp4", "720p");
+  })
+
+  if(url.value==""){
+    document.getElementById("videoCard").style.display = "none";
+  }
+
+  
+ 
+
+
+</script>
+
+{% endblock %}

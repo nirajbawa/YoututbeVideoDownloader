@@ -1,0 +1,66 @@
+{% extends 'base.html' %} {% block title %}Sign Up{% endblock %} {% block
+content %}
+
+{% if msg %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{msg}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endif %}
+
+<div class="container px-5 py-5 my-5">
+  <form class="d-flex justify-content-between align-items-center flex-column" id="signup" method="POST" action="/auth/api/signup" >
+    <h1 class="w-50 mb-5">Sign Up</h1>
+
+    <div class="form-floating mb-4 w-50">
+      <input
+        type="text"
+        class="form-control"
+        id="floatingInput1"
+        name="fullName"
+        placeholder="fullName"
+        required
+      />
+      <label for="floatingInput">Full Name</label>
+    </div>
+
+    <div class="form-floating mb-4 w-50">
+      <input
+        type="email"
+        class="form-control"
+        id="floatingInput2"
+        name="email"
+        placeholder="name@example.com"
+        required
+      />
+      <label for="floatingInput">Email Address</label>
+    </div>
+
+    <div class="form-floating mb-5 w-50">
+      <input
+        type="password"
+        class="form-control"
+        id="floatingInput3"
+        name="password"
+        placeholder="password"
+        required
+      />
+      <label for="floatingInput">Password</label>
+    </div>
+
+    <button type="submit" class="btn w-25 fs-5 btn-outline-primary">
+      Submit
+    </button>
+  </form>
+</div>
+
+<script>
+    history.pushState(null, document.title, location.href);
+    history.back();
+    history.forward();
+    window.onpopstate = function () {
+      history.go(1);
+    };
+  </script>
+
+{% endblock %}
