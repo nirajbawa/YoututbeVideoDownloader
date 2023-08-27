@@ -8,22 +8,32 @@
       </div>
     {% endif %}
 
+    
+<style>
+  @media (max-width: 768px) {
+    .inputb{
+      width: 100% !important;
+    }
+  }
+</style>
+
 <div class="container px-5 py-5 my-5">
     <form class="d-flex justify-content-between  align-items-center flex-column" method="POST" action="/auth/api/signin">
         <h1 class="w-50 mb-5">
             Sign In
         </h1>
-        <div class="form-floating mb-4  w-50">
+        <div class="form-floating mb-4  w-50 inputb">
             <input type="email" class="form-control" id="floatingInput1" name="email" placeholder="name@example.com" required>
             <label for="floatingInput">Email Address</label>
           </div>
-          <div class="form-floating mb-5  w-50">
+          <div class="form-floating mb-5  w-50 inputb">
             <input type="password" class="form-control" id="floatingInput2" name="password" placeholder="password" required>
             <label for="floatingInput">Password</label>
           </div>
-          <button type="submit" class="btn w-25 fs-5 btn-outline-primary">Submit</button>
+          <button type="submit" class="btn w-25 fs-5 btn-outline-primary inputb">Submit</button>
         </form>
 </div>
+
 
 
 {% endblock %}

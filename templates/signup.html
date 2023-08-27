@@ -8,11 +8,20 @@ content %}
   </div>
 {% endif %}
 
+<style>
+  @media (max-width: 768px) {
+    .inputb{
+      width: 100% !important;
+    }
+  }
+</style>
+
+
 <div class="container px-5 py-5 my-5">
   <form class="d-flex justify-content-between align-items-center flex-column" id="signup" method="POST" action="/auth/api/signup" >
     <h1 class="w-50 mb-5">Sign Up</h1>
 
-    <div class="form-floating mb-4 w-50">
+    <div class="form-floating mb-4 w-50 inputb">
       <input
         type="text"
         class="form-control"
@@ -24,7 +33,7 @@ content %}
       <label for="floatingInput">Full Name</label>
     </div>
 
-    <div class="form-floating mb-4 w-50">
+    <div class="form-floating mb-4 w-50 inputb">
       <input
         type="email"
         class="form-control"
@@ -36,7 +45,7 @@ content %}
       <label for="floatingInput">Email Address</label>
     </div>
 
-    <div class="form-floating mb-5 w-50">
+    <div class="form-floating mb-5 w-50 inputb">
       <input
         type="password"
         class="form-control"
@@ -48,7 +57,7 @@ content %}
       <label for="floatingInput">Password</label>
     </div>
 
-    <button type="submit" class="btn w-25 fs-5 btn-outline-primary">
+    <button type="submit" class="btn w-25 fs-5 btn-outline-primary inputb">
       Submit
     </button>
   </form>
